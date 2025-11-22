@@ -1,0 +1,6 @@
+
+
+// REQUIREMENTS //
+ - i686-elf-gcc toolchain
+ - GRUB
+ - QEMU (For testing optional)
