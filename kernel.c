@@ -1,7 +1,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-
+#include "include/drivers/keyboard.h"
+#include "include/kernel/io.h"
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)
 #error "You are not using a cross-compiler, you will most certainly run into trouble"
@@ -48,7 +49,6 @@ size_t strlen(const char* str)
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 #define VGA_MEMORY 0xB8000
-
 size_t terminal_row;
 size_t terminal_column;
 uint8_t terminal_color;
@@ -106,4 +106,16 @@ void kernel_main(void)
 {
     terminal_initialize();
     terminal_writestring("Hello, kernel World!\n");
-}
+    terminal_writestring("Type something: ");
+    keyboard_init();
+    
+    while(1){
+        keyboard_handler();
+        if (keyboard_has_data()){
+            char c = keyboard_read_char();
+            terminal_putchar(c);
+        }
+    }
+
+    
+    }

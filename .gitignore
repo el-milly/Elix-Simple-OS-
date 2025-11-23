@@ -1,0 +1,4 @@
+keyboard.o
+boot.o
+kernel.o
+myos.bin
